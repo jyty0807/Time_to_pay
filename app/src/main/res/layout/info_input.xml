@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/operation_information"
+    android:paddingLeft="16dp"
+    android:paddingTop="16dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="16dp"
+    tools:context=".InfoInput">
+
+
+    <EditText
+        android:id="@+id/locationEditText"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="210dp"
+        android:background="@android:color/transparent" />
+
+    <EditText
+        android:id="@+id/opExplanationEditText"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="320dp"
+        android:hint="근무 설명을 입력해 주세요."
+        android:textStyle="bold"
+        android:background="@android:color/transparent" />
+
+    <EditText
+        android:id="@+id/opHourlyRateEditText"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="420dp"
+        android:hint="시급을 입력해 주세요."
+        android:textStyle="bold"
+        android:background="@android:color/transparent" />
+
+    <MultiAutoCompleteTextView
+        android:id="@+id/opWeekTextView"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="530dp"
+        android:hint="일하는 요일을 선택해 주세요."
+        android:textStyle="bold"
+        android:background="@android:color/transparent"
+        android:completionThreshold="1" />
+
+    <EditText
+        android:id="@+id/opTimeEditText"
+        android:layout_width="280dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="630dp"
+        android:hint="일하는 시간을 입력해 주세요."
+        android:textStyle="bold"
+        android:background="@android:color/transparent" />
+
+    <android.widget.Button
+        android:id="@+id/startButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="750dp"
+        android:background="@drawable/done_button"
+        />
+
+</RelativeLayout>
