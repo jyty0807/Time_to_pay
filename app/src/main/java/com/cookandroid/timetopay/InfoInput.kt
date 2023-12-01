@@ -10,27 +10,38 @@ import androidx.appcompat.app.AppCompatActivity
 
 class InfoInput : AppCompatActivity() {
 
+    private lateinit var locationEditText: EditText
+    private lateinit var opExplanationEditText: EditText
+    private lateinit var opHourlyRateEditText: EditText
+    private lateinit var opWeekTextView: MultiAutoCompleteTextView
+    private lateinit var opTimeEditText: EditText
+    private lateinit var doneButton: Button
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.info_input)
 
-        val locationEditText: EditText = findViewById(R.id.locationEditText)
-        val opExplanationEditText: EditText = findViewById(R.id.opExplanationEditText)
-        val opHourlyRateEditText: EditText = findViewById(R.id.opHourlyRateEditText)
-        val opWeekTextView: MultiAutoCompleteTextView = findViewById(R.id.opWeekTextView)
-        val opTimeEditText: EditText = findViewById(R.id.opTimeEditText)
+        doneButton.setOnClickListener {
+            doneButton.setBackgroundResource(R.drawable.pressed_done_button)
 
-        val daysOfWeek = arrayOf("월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일")
+            val locationEditText: EditText = findViewById(R.id.locationEditText)
+            val opExplanationEditText: EditText = findViewById(R.id.opExplanationEditText)
+            val opHourlyRateEditText: EditText = findViewById(R.id.opHourlyRateEditText)
+            val opWeekTextView: MultiAutoCompleteTextView = findViewById(R.id.opWeekTextView)
+            val opTimeEditText: EditText = findViewById(R.id.opTimeEditText)
 
-        val adapter = ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, daysOfWeek)
-        opWeekTextView.setAdapter(adapter)
+            val daysOfWeek = arrayOf("월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일")
+
+            val adapter =
+                ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, daysOfWeek)
+            opWeekTextView.setAdapter(adapter)
 
 
             // 구분자 설정
 
-            val startButton: Button = findViewById(R.id.startButton)
-            startButton.setOnClickListener {
+            val doneButton: Button = findViewById(R.id.doneButton)
+            doneButton.setOnClickListener {
                 // 사용자 입력 가져오기
                 val location = locationEditText.text.toString()
                 val opExplanation = opExplanationEditText.text.toString()
@@ -44,10 +55,16 @@ class InfoInput : AppCompatActivity() {
                     // 예: Toast.makeText(this, "모든 입력란을 완료해주세요.", Toast.LENGTH_SHORT).show()
                 } else {
                     // 모든 입력이 완료되었으면 다음 액티비티로 이동
-                    val intent = Intent(this, WishList::class.java)
-                    // 다음 액티비티에 전달할 데이터가 있다면 여기서 putExtra를 사용하여 추가
+                    val intent = Intent(this, Display::class.java)
+                    intent.putExtra("location", location)
+                    intent.putExtra("opExplanation", opExplanation)
+                    intent.putExtra("opHourlyRate", opHourlyRate)
+                    intent.putExtra("opWeek", opWeek)
+                    intent.putExtra("opTime", opTime)
                     startActivity(intent)
+
                 }
             }
         }
     }
+}

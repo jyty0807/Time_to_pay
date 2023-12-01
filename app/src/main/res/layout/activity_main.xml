@@ -15,9 +15,8 @@
         android:id="@+id/startButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_marginTop="700dp"
-        android:background="@drawable/info_button"
-        />
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/info_button" />
 
 </RelativeLayout>
