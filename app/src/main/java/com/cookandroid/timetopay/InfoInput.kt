@@ -1,7 +1,12 @@
 package com.cookandroid.timetopay
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.os.Handler
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.widget.ArrayAdapter
 import android.widget.MultiAutoCompleteTextView
 import android.widget.Button
@@ -21,6 +26,23 @@ class InfoInput : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.info_input)
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false)
+            window.insetsController?.hide(WindowInsets.Type.systemBars() or WindowInsets.Type.navigationBars())
+            window.insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+        else {
+            window.decorView.systemUiVisibility =
+                (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
+                        View.SYSTEM_UI_FLAG_FULLSCREEN or
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
+        }
+
+        doneButton = findViewById(R.id.doneButton)
 
         doneButton.setOnClickListener {
             doneButton.setBackgroundResource(R.drawable.pressed_done_button)
@@ -55,13 +77,15 @@ class InfoInput : AppCompatActivity() {
                     // 예: Toast.makeText(this, "모든 입력란을 완료해주세요.", Toast.LENGTH_SHORT).show()
                 } else {
                     // 모든 입력이 완료되었으면 다음 액티비티로 이동
-                    val intent = Intent(this, Display::class.java)
+                    val intent = Intent(this, WishList::class.java)
                     intent.putExtra("location", location)
                     intent.putExtra("opExplanation", opExplanation)
                     intent.putExtra("opHourlyRate", opHourlyRate)
                     intent.putExtra("opWeek", opWeek)
                     intent.putExtra("opTime", opTime)
-                    startActivity(intent)
+                    Handler().postDelayed({
+                        startActivity(intent)
+                    }, 200)
 
                 }
             }

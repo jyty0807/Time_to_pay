@@ -1,7 +1,11 @@
 package com.cookandroid.timetopay
 
 
+import android.os.Build
 import android.os.Bundle
+import android.view.View
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import java.text.SimpleDateFormat
@@ -13,13 +17,28 @@ class Display : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.displaymain)
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            window.setDecorFitsSystemWindows(false)
+            window.insetsController?.hide(WindowInsets.Type.systemBars() or WindowInsets.Type.navigationBars())
+            window.insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
+        else {
+            window.decorView.systemUiVisibility =
+                (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
+                        View.SYSTEM_UI_FLAG_FULLSCREEN or
+                        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                        View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
+        }
+
         //위시리스트 설정 데이터 추출
         val intent = intent
         val wishName = intent.getStringExtra("wishName")
         val wishExplain = intent.getStringExtra("wishExplain")
         val wishPrice = intent.getStringExtra("wishPrice")
-        val wishtext : TextView = findViewById(R.id.wishText)
-        wishtext.text = "물건 이름: $wishName\n물건 설명: $wishExplain"
+        val wishTextView : TextView = findViewById(R.id.wishTextView)
+        wishTextView.text = "물건 이름: $wishName\n물건 설명: $wishExplain"
 
         // 근무지 설정 데이터 추출
         val location = intent.getStringExtra("location")

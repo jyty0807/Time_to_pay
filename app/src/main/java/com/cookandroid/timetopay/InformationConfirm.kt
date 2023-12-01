@@ -1,6 +1,6 @@
 package com.cookandroid.timetopay
 
-class informationconfirm {
+class InformationConfirm {
 
 
 }

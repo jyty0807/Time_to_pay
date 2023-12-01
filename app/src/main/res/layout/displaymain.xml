@@ -11,7 +11,7 @@
 
 
     <TextView
-        android:id="@+id/wishText"
+        android:id="@+id/wishTextView"
         android:layout_width="250dp"
         android:layout_height="70dp"
         android:layout_marginTop="450dp"
@@ -21,7 +21,7 @@
 
 
     <TextView
-        android:id="@+id/monthlysalary"
+        android:id="@+id/monthlysalaryTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="615dp"
@@ -32,7 +32,7 @@
         android:textSize="18sp"/>
 
     <TextView
-        android:id="@+id/remainingworkday"
+        android:id="@+id/remainingworkdayTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="720dp"
@@ -43,7 +43,7 @@
         android:textSize="30dp"/>
 
     <TextView
-        android:id="@+id/remainingworktime"
+        android:id="@+id/remainingworktimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="720dp"

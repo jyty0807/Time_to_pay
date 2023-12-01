@@ -15,10 +15,11 @@
         android:id="@+id/locationEditText"
         android:layout_width="280dp"
         android:layout_height="50dp"
+        android:layout_weight="1"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="210dp"
         android:background="@android:color/transparent"
-        android:hint="근무지 정보를 설을 입력해 주세요."/>
+        android:hint="근무지 정보를 설을 입력해 주세요." />
 
     <EditText
         android:id="@+id/opExplanationEditText"
