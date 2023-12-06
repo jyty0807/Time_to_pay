@@ -56,7 +56,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".Display"
             android:exported="true">
@@ -66,7 +65,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Calenderview"
+            android:name=".Calendarview"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Work"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

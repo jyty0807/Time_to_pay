@@ -14,6 +14,8 @@ import android.widget.Button
 class MainActivity : AppCompatActivity() {
 
     private lateinit var startButton: Button
+    private lateinit var workButton: Button
+    private lateinit var calButton: Button
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,6 +47,29 @@ class MainActivity : AppCompatActivity() {
             Handler().postDelayed({
                 startActivity(intent)
             }, 200)
+
+
+            workButton = findViewById(R.id.work_Button)
+
+            workButton.setOnClickListener {
+
+                val intent = Intent(this, Work::class.java)
+
+                Handler().postDelayed({
+                    startActivity(intent)
+
+                }, 200)
+                calButton = findViewById(R.id.calender_Button)
+
+                calButton.setOnClickListener {
+
+                    val intent = Intent(this, Calendarview::class.java)
+
+                    Handler().postDelayed({
+                        startActivity(intent)
+
+                    }, 200)
         }
+
     }
-}
+}}}
