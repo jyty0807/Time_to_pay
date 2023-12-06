@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    tools:context=".Calendarview">
+
+    <CalendarView
+        android:id="@+id/ccalendarView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.488"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ddiaryTextView" />
+
+
+    <EditText
+        android:id="@+id/ccontextEditText"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:ems="10"
+        android:hint="아르바이트 일정"
+        android:inputType="textMultiLine"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@id/ccalendarView"
+        app:layout_constraintStart_toStartOf="@+id/ccalendarView"
+        app:layout_constraintTop_toBottomOf="@+id/ccalendarView" />
+
+    <EditText
+        android:id="@+id/sstart_time"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:visibility="invisible"
+        android:hint="출근시간"
+        app:layout_constraintStart_toStartOf="@id/ccalendarView"
+        android:layout_marginStart="10dp"
+        app:layout_constraintTop_toBottomOf="@+id/ccontextEditText"/>
+
+    <EditText
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:id="@+id/eend_time"
+        android:visibility="invisible"
+        android:hint="퇴근시간"
+        app:layout_constraintStart_toStartOf="@id/sstart_time"
+        android:layout_marginStart="180dp"
+        app:layout_constraintTop_toTopOf="@+id/sstart_time" />
+
+
+    <TextView
+        android:id="@+id/ddiaryContent"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="10dp"
+        android:visibility="invisible"
+        android:textSize="23sp"
+        app:layout_constraintEnd_toEndOf="@id/ccalendarView"
+        app:layout_constraintStart_toStartOf="@+id/ccalendarView"
+        app:layout_constraintTop_toBottomOf="@+id/ccalendarView" />
+
+
+    <TextView
+        android:id="@+id/ttimeContent1"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:visibility="invisible"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/ccalendarView"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="23dp"
+        app:layout_constraintTop_toBottomOf="@+id/ccontextEditText" />
+
+
+    <TextView
+        android:id="@+id/nnext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:text="~ "
+        android:textSize="30sp"
+        app:layout_constraintStart_toStartOf="@id/sstart_time"
+        android:layout_marginStart="125dp"
+        app:layout_constraintTop_toTopOf="@+id/sstart_time"
+        android:layout_marginTop="17dp"/>
+
+
+    <TextView
+        android:id="@+id/ttimeContent2"
+        android:layout_width="100dp"
+        android:layout_height="70dp"
+        android:visibility="invisible"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/sstart_time"
+        android:layout_marginStart="185dp"
+        android:layout_marginTop="23dp"
+        app:layout_constraintTop_toTopOf="@+id/sstart_time" />
+
+
+    <TextView
+        android:id="@+id/ddiaryTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:gravity="left"
+        android:textColor="#9E28B3"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/ssaveBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="20dp"
+        android:text="저장"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="@id/ccalendarView"
+        app:layout_constraintEnd_toEndOf="@id/ccalendarView"
+        app:layout_constraintTop_toTopOf="@+id/sstart_time" />
+
+    <Button
+        android:id="@+id/uupdateBtn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:text="수정"
+        android:visibility="invisible"
+        app:layout_constraintBaseline_toBaselineOf="@+id/ssaveBtn"
+        app:layout_constraintEnd_toStartOf="@+id/ddeleteBtn"
+        app:layout_constraintStart_toStartOf="@id/ccalendarView" />
+
+    <Button
+        android:id="@+id/ddeleteBtn"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:text="삭제"
+        android:visibility="invisible"
+        app:layout_constraintBaseline_toBaselineOf="@+id/uupdateBtn"
+        app:layout_constraintEnd_toEndOf="@+id/ccalendarView">
+    </Button>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
