@@ -75,4 +75,12 @@
         android:background="@drawable/confirm_completedbutton"
         />
 
+    <android.widget.Button
+        android:id="@+id/c_Pre_button"
+        android:layout_width="78dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="0dp"
+        android:background="@drawable/previousbutton" />
+
 </RelativeLayout>

@@ -74,7 +74,7 @@ class WishList : AppCompatActivity() {
         nextt_button = findViewById(R.id.nexttbutton)
         nextt_button.setOnClickListener {
             // 다음으로 이동할 액티비티의 클래스를 명시
-            val intent = Intent(this, informationConfirm::class.java)
+            val intent = Intent(this, InformationConfirm::class.java)
             startActivity(intent)
         }
 
