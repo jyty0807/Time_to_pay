@@ -21,7 +21,8 @@ class InfoInput : AppCompatActivity() {
     private lateinit var opWeekTextView: MultiAutoCompleteTextView
     private lateinit var opTimeEditText: EditText
     private lateinit var doneButton: Button
-
+    private lateinit var inextButton: Button
+    private lateinit var ipreButton: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -88,7 +89,22 @@ class InfoInput : AppCompatActivity() {
                     }, 200)
 
                 }
+            } // nextt_button과 setOnClickListener가 wishlistButton의 블록 바깥에 위치하도록 변경
+            inextButton = findViewById(R.id.i_nextbutton)
+            inextButton.setOnClickListener {
+                // 다음으로 이동할 액티비티의 클래스를 명시
+                val intent = Intent(this, WishList::class.java)
+                startActivity(intent)
+            }
+
+            // wpreviousButton과 setOnClickListener가 wishlistButton의 블록 바깥에 위치하도록 변경
+            ipreButton = findViewById(R.id.w_Pre_button)
+            ipreButton.setOnClickListener {
+                // 이전으로 이동할 액티비티의 클래스를 명시
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
             }
         }
+
     }
-}
+    }
