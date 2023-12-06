@@ -17,6 +17,8 @@ class WishList : AppCompatActivity() {
     private lateinit var wishExplainEditText: EditText
     private lateinit var wishPriceEditText: EditText
     private lateinit var wishlistButton: Button
+    private lateinit var nextt_button: Button
+    private lateinit var wpreviousButton: Button
 
     private var savedData: String = ""  // 추출한 데이터를 저장할 변수
 
@@ -27,9 +29,9 @@ class WishList : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.setDecorFitsSystemWindows(false)
             window.insetsController?.hide(WindowInsets.Type.systemBars() or WindowInsets.Type.navigationBars())
-            window.insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
-        else {
+            window.insetsController?.systemBarsBehavior =
+                WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        } else {
             window.decorView.systemUiVisibility =
                 (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
                         View.SYSTEM_UI_FLAG_FULLSCREEN or
@@ -67,8 +69,23 @@ class WishList : AppCompatActivity() {
                 startActivity(intent)
             }
         }
-    }
 
+        // nextt_button과 setOnClickListener가 wishlistButton의 블록 바깥에 위치하도록 변경
+        nextt_button = findViewById(R.id.nexttbutton)
+        nextt_button.setOnClickListener {
+            // 다음으로 이동할 액티비티의 클래스를 명시
+            val intent = Intent(this, informationConfirm::class.java)
+            startActivity(intent)
+        }
+
+        // wpreviousButton과 setOnClickListener가 wishlistButton의 블록 바깥에 위치하도록 변경
+        wpreviousButton = findViewById(R.id.w_Pre_button)
+        wpreviousButton.setOnClickListener {
+            // 이전으로 이동할 액티비티의 클래스를 명시
+            val intent = Intent(this, InfoInput::class.java)
+            startActivity(intent)
+        }
+    }
 
     private fun showToast(message: String) {
         // 추출한 데이터를 토스트 메시지로 보여주는 함수
@@ -81,4 +98,12 @@ class WishList : AppCompatActivity() {
         savedData = "물건 이름: $name\n물건 설명: $explanation\n물건 가격: $price"
     }
 }
+
+
+
+
+
+
+
+
 

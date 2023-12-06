@@ -35,7 +35,7 @@ class MainActivity : AppCompatActivity() {
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
         }
 
-        startButton = findViewById(R.id.startButton)
+        startButton = findViewById(R.id.start_Button)
 
         startButton.setOnClickListener {
             startButton.setBackgroundResource(R.drawable.info_button_pressed)
