@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/operation_information"
+    android:background="@drawable/work_information"
     android:paddingLeft="16dp"
     android:paddingTop="16dp"
     android:paddingRight="16dp"
@@ -17,16 +17,16 @@
         android:layout_height="50dp"
         android:layout_weight="1"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="210dp"
+        android:layout_marginTop="160dp"
         android:background="@android:color/transparent"
-        android:hint="근무지 정보를 설을 입력해 주세요." />
+        android:hint="근무지 정보을 입력해 주세요." />
 
     <EditText
         android:id="@+id/opExplanationEditText"
         android:layout_width="280dp"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="320dp"
+        android:layout_marginTop="280dp"
         android:hint="근무 설명을 입력해 주세요."
         android:textStyle="bold"
         android:background="@android:color/transparent" />
@@ -36,7 +36,7 @@
         android:layout_width="280dp"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="420dp"
+        android:layout_marginTop="390dp"
         android:hint="시급을 입력해 주세요."
         android:textStyle="bold"
         android:background="@android:color/transparent" />
@@ -46,7 +46,7 @@
         android:layout_width="280dp"
         android:layout_height="50dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="530dp"
+        android:layout_marginTop="510dp"
         android:hint="일하는 요일을 선택해 주세요."
         android:textStyle="bold"
         android:background="@android:color/transparent"
