@@ -5,56 +5,56 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    android:layout_margin="16dp"
-    tools:context=".Work">
+    tools:context=".MainActivity">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="근무 시작 시간:"
-        android:textSize="18dp"
-        android:layout_margin="16dp"/>
+        android:text="근무 시작 시간:" />
 
     <EditText
         android:id="@+id/editTextStartTime"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:inputType="none"
         android:focusable="false"
-        android:clickable="true"
-        android:textSize="18dp"
-        android:layout_margin="16dp"/>
+        android:clickable="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="근무 종료 시간:"
-        android:textSize="18dp"
-        android:layout_margin="16dp"/>
+        android:text="근무 종료 시간:" />
 
     <EditText
         android:id="@+id/editTextEndTime"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:inputType="none"
         android:focusable="false"
-        android:clickable="true"
-        android:layout_margin="16dp"
-       />
+        android:clickable="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="시급:" />
+
+    <EditText
+        android:id="@+id/editTextHourlyRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="numberDecimal" />
 
     <Button
         android:id="@+id/buttonPickDates"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="요일 선택"
-        android:layout_margin="16dp"/>
+        android:text="요일 선택" />
 
     <Button
         android:id="@+id/buttonCalculate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="계산하기"
-        android:layout_margin="16dp"/>
+        android:text="계산하기" />
 
     <TextView
         android:id="@+id/textViewResult"
@@ -64,3 +64,4 @@
         android:text="총 급여: " />
 
 </LinearLayout>
+
