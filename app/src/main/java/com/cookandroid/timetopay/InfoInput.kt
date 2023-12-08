@@ -1,5 +1,9 @@
 package com.cookandroid.timetopay
 
+import android.annotation.SuppressLint
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
+import android.content.Context
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -7,23 +11,36 @@ import android.os.Handler
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.ArrayAdapter
-import android.widget.MultiAutoCompleteTextView
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
+import android.widget.TimePicker
 import androidx.appcompat.app.AppCompatActivity
+import java.text.SimpleDateFormat
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
 
 class InfoInput : AppCompatActivity() {
 
     private lateinit var locationEditText: EditText
     private lateinit var opExplanationEditText: EditText
     private lateinit var opHourlyRateEditText: EditText
-    private lateinit var opWeekTextView: MultiAutoCompleteTextView
-    private lateinit var opTimeEditText: EditText
     private lateinit var doneButton: Button
-    private lateinit var inextButton: Button
-    private lateinit var ipreButton: Button
+    private lateinit var opStartTimeEditText: EditText
+    private lateinit var opEndTimeEditText: EditText
+    private lateinit var buttonPickDates: Button
+    private lateinit var textViewResult: TextView
 
+    private val overtimeRate = 1.5
+    private val nightShiftRate = 1.5
+    private val simultaneousRate = 2.0
+    private val weeklyWorkHoursThreshold = 15 // 주휴 수당을 받기 위한 주간 근무 시간 기준
+
+    private val selectedDays = mutableSetOf<String>()
+
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.info_input)
@@ -31,9 +48,9 @@ class InfoInput : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.setDecorFitsSystemWindows(false)
             window.insetsController?.hide(WindowInsets.Type.systemBars() or WindowInsets.Type.navigationBars())
-            window.insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
-        else {
+            window.insetsController?.systemBarsBehavior =
+                WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        } else {
             window.decorView.systemUiVisibility =
                 (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
                         View.SYSTEM_UI_FLAG_FULLSCREEN or
@@ -43,68 +60,104 @@ class InfoInput : AppCompatActivity() {
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
         }
 
+        locationEditText = findViewById(R.id.locationEditText)
+        opExplanationEditText = findViewById(R.id.opExplanationEditText)
+        opHourlyRateEditText = findViewById(R.id.opHourlyRateEditText)
         doneButton = findViewById(R.id.doneButton)
+        opStartTimeEditText = findViewById(R.id.opStartTimeEditText)
+        opEndTimeEditText = findViewById(R.id.opEndTimeEditText)
+        buttonPickDates = findViewById(R.id.buttonPickDates)
+        textViewResult = findViewById(R.id.textViewResult)
 
-        doneButton.setOnClickListener {
-            doneButton.setBackgroundResource(R.drawable.pressed_done_button)
-
-            val locationEditText: EditText = findViewById(R.id.locationEditText)
-            val opExplanationEditText: EditText = findViewById(R.id.opExplanationEditText)
-            val opHourlyRateEditText: EditText = findViewById(R.id.opHourlyRateEditText)
-            val opWeekTextView: MultiAutoCompleteTextView = findViewById(R.id.opWeekTextView)
-            val opTimeEditText: EditText = findViewById(R.id.opTimeEditText)
-
-            val daysOfWeek = arrayOf("월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일")
-
-            val adapter =
-                ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line, daysOfWeek)
-            opWeekTextView.setAdapter(adapter)
-
-
-            // 구분자 설정
-
-            val doneButton: Button = findViewById(R.id.doneButton)
-            doneButton.setOnClickListener {
-                // 사용자 입력 가져오기
-                val location = locationEditText.text.toString()
-                val opExplanation = opExplanationEditText.text.toString()
-                val opHourlyRate = opHourlyRateEditText.text.toString()
-                val opWeek = opWeekTextView.text.toString()
-                val opTime = opTimeEditText.text.toString()
-
-                // 입력이 비어있는지 확인
-                if (location.isEmpty() || opExplanation.isEmpty() || opHourlyRate.isEmpty() || opWeek.isEmpty() || opTime.isEmpty()) {
-                    // 사용자에게 모든 입력을 완료하라는 메시지 표시
-                    // 예: Toast.makeText(this, "모든 입력란을 완료해주세요.", Toast.LENGTH_SHORT).show()
-                } else {
-                    // 모든 입력이 완료되었으면 다음 액티비티로 이동
-                    val intent = Intent(this, WishList::class.java)
-                    intent.putExtra("location", location)
-                    intent.putExtra("opExplanation", opExplanation)
-                    intent.putExtra("opHourlyRate", opHourlyRate)
-                    intent.putExtra("opWeek", opWeek)
-                    intent.putExtra("opTime", opTime)
-                    Handler().postDelayed({
-                        startActivity(intent)
-                    }, 200)
-
-                }
-            } // nextt_button과 setOnClickListener가 wishlistButton의 블록 바깥에 위치하도록 변경
-            inextButton = findViewById(R.id.i_nextbutton)
-            inextButton.setOnClickListener {
-                // 다음으로 이동할 액티비티의 클래스를 명시
-                val intent = Intent(this, WishList::class.java)
-                startActivity(intent)
-            }
-
-            // wpreviousButton과 setOnClickListener가 wishlistButton의 블록 바깥에 위치하도록 변경
-            ipreButton = findViewById(R.id.w_Pre_button)
-            ipreButton.setOnClickListener {
-                // 이전으로 이동할 액티비티의 클래스를 명시
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
-            }
+        opStartTimeEditText.setOnClickListener {
+            showTimePicker(opStartTimeEditText)
         }
 
+        opEndTimeEditText.setOnClickListener {
+            showTimePicker(opEndTimeEditText)
+        }
+
+        buttonPickDates.setOnClickListener {
+            showDaysDialog()
+        }
+
+        doneButton.setOnClickListener {
+            val location = locationEditText.text.toString()
+            val opExplanation = opExplanationEditText.text.toString()
+            val opHourlyRate = opHourlyRateEditText.text.toString()
+
+            if (location.isEmpty() || opExplanation.isEmpty() || opHourlyRate.isEmpty()) {
+                // 사용자에게 모든 입력을 완료하라는 메시지 표시
+                // 예: Toast.makeText(this, "모든 입력란을 완료해주세요.", Toast.LENGTH_SHORT).show()
+            } else {
+                val intent = Intent(this, WishList::class.java)
+                intent.putExtra("location", location)
+                intent.putExtra("opExplanation", opExplanation)
+                intent.putExtra("opHourlyRate", opHourlyRate)
+                Handler().postDelayed({
+                    startActivity(intent)
+                }, 200)
+            }
+        }
     }
+
+    private fun showTimePicker(editText: EditText) {
+        val currentTime = Calendar.getInstance()
+        val hour = currentTime.get(Calendar.HOUR_OF_DAY)
+        val minute = currentTime.get(Calendar.MINUTE)
+
+        val timePickerDialog = TimePickerDialog(
+            this,
+            { _, selectedHour, selectedMinute ->
+                val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+                val selectedTime = sdf.parse("$selectedHour:$selectedMinute")
+                editText.setText(sdf.format(selectedTime))
+
+                // 시간 선택 후 키보드를 숨김
+                hideKeyboard(editText)
+            },
+            hour,
+            minute,
+            true
+        )
+
+        timePickerDialog.show()
     }
+
+    private fun hideKeyboard(view: View) {
+        val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
+    private fun showDaysDialog() {
+        val daysOfWeek = arrayOf("월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일")
+
+        androidx.appcompat.app.AlertDialog.Builder(this)
+            .setTitle("요일 선택")
+            .setMultiChoiceItems(daysOfWeek, null) { _, which, isChecked ->
+                if (isChecked) {
+                    selectedDays.add(daysOfWeek[which])
+                } else {
+                    selectedDays.remove(daysOfWeek[which])
+                }
+            }
+            .setPositiveButton("확인") { dialog, _ ->
+                dialog.dismiss()
+                handleSelectedDays()
+            }
+            .setNegativeButton("취소") { dialog, _ ->
+                dialog.dismiss()
+            }
+            .create()
+            .show()
+    }
+
+    private fun handleSelectedDays() {
+        val selectedDaysString = selectedDays.joinToString(", ")
+        textViewResult.text = "선택된 요일: $selectedDaysString"
+    }
+
+    private fun calculatePayment() {
+        // 여기에 계산 로직을 추가하면 됩니다.
+    }
+}

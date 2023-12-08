@@ -25,9 +25,9 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.setDecorFitsSystemWindows(false)
             window.insetsController?.hide(WindowInsets.Type.systemBars() or WindowInsets.Type.navigationBars())
-            window.insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
-        else {
+            window.insetsController?.systemBarsBehavior =
+                WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        } else {
             window.decorView.systemUiVisibility =
                 (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
                         View.SYSTEM_UI_FLAG_FULLSCREEN or
@@ -49,27 +49,17 @@ class MainActivity : AppCompatActivity() {
             }, 200)
 
 
-            workButton = findViewById(R.id.work_Button)
+            calButton = findViewById(R.id.calender_Button)
 
-            workButton.setOnClickListener {
+            calButton.setOnClickListener {
 
-                val intent = Intent(this, Work::class.java)
+                val intent = Intent(this, Calendarview::class.java)
 
                 Handler().postDelayed({
                     startActivity(intent)
-
                 }, 200)
-                calButton = findViewById(R.id.calender_Button)
+            }
 
-                calButton.setOnClickListener {
-
-                    val intent = Intent(this, Calendarview::class.java)
-
-                    Handler().postDelayed({
-                        startActivity(intent)
-
-                    }, 200)
         }
-
     }
-}}}
+}
