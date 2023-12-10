@@ -1,21 +1,44 @@
 package com.cookandroid.timetopay
 
-
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import java.text.SimpleDateFormat
 import java.util.Date
 
 class Display : AppCompatActivity() {
 
+    private lateinit var wishimage : Button
+    private lateinit var image : ImageView
+    private val OPEN_GALLERY = 1
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.displaymain)
+
+        wishimage=findViewById(R.id.wishimage)
+        image=findViewById(R.id.image)
+
+        wishimage.setOnClickListener{
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, OPEN_GALLERY)
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.setDecorFitsSystemWindows(false)
@@ -59,5 +82,27 @@ class Display : AppCompatActivity() {
     private fun getCurrentDate(): String {
         val sdf = SimpleDateFormat("yyyy-MM-dd")  // 날짜 형식 지정
         return sdf.format(Date())
+    }
+
+    @Override
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if( resultCode == Activity.RESULT_OK){
+            if( requestCode ==  OPEN_GALLERY)
+            {
+                var ImnageData: Uri? = data?.data
+                Toast.makeText(this,ImnageData.toString(), Toast.LENGTH_SHORT ).show()
+                try {
+                    val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, ImnageData)
+                    image.setImageBitmap(bitmap)
+                    wishimage.visibility=View.INVISIBLE
+                }
+                catch (e:Exception)
+                {
+                    e.printStackTrace()
+                }
+            }
+        }
     }
 }
