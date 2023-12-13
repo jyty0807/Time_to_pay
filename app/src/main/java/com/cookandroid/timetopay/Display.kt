@@ -22,19 +22,19 @@ import java.util.Date
 
 class Display : AppCompatActivity() {
 
-    private lateinit var wishimage : Button
-    private lateinit var image : ImageView
+    private lateinit var wishimage: Button
+    private lateinit var image: ImageView
     private val OPEN_GALLERY = 1
-
+    private lateinit var monthlySalaryTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.displaymain)
 
-        wishimage=findViewById(R.id.wishimage)
-        image=findViewById(R.id.image)
+        wishimage = findViewById(R.id.wishimage)
+        image = findViewById(R.id.image)
 
-        wishimage.setOnClickListener{
+        wishimage.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK)
             intent.type = "image/*"
             startActivityForResult(intent, OPEN_GALLERY)
@@ -43,9 +43,9 @@ class Display : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.setDecorFitsSystemWindows(false)
             window.insetsController?.hide(WindowInsets.Type.systemBars() or WindowInsets.Type.navigationBars())
-            window.insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-        }
-        else {
+            window.insetsController?.systemBarsBehavior =
+                WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        } else {
             window.decorView.systemUiVisibility =
                 (View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY or
                         View.SYSTEM_UI_FLAG_FULLSCREEN or
@@ -60,7 +60,7 @@ class Display : AppCompatActivity() {
         val wishName = intent.getStringExtra("wishName")
         val wishExplain = intent.getStringExtra("wishExplain")
         val wishPrice = intent.getStringExtra("wishPrice")
-        val wishTextView : TextView = findViewById(R.id.wishTextView)
+        val wishTextView: TextView = findViewById(R.id.wishTextView)
         wishTextView.text = "물건 이름: $wishName\n물건 설명: $wishExplain"
 
         // 근무지 설정 데이터 추출
@@ -69,6 +69,11 @@ class Display : AppCompatActivity() {
         val opHourlyRate = intent.getStringExtra("opHourlyRate")
         val opWeek = intent.getStringExtra("opWeek")
         val opTime = intent.getStringExtra("opTime")
+        val totalPayment = intent.getStringExtra("totalPayment")
+
+        val monthlySalaryTextView = findViewById<TextView>(R.id.monthlysalaryTextView)
+        monthlySalaryTextView.text = totalPayment.toString()
+
 
         // 현재 날짜 가져오기
         val currentDate = getCurrentDate()
@@ -88,18 +93,15 @@ class Display : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if( resultCode == Activity.RESULT_OK){
-            if( requestCode ==  OPEN_GALLERY)
-            {
-                var ImnageData: Uri? = data?.data
-                Toast.makeText(this,ImnageData.toString(), Toast.LENGTH_SHORT ).show()
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == OPEN_GALLERY) {
+                var imageData: Uri? = data?.data
+                Toast.makeText(this, imageData.toString(), Toast.LENGTH_SHORT).show()
                 try {
-                    val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, ImnageData)
+                    val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageData)
                     image.setImageBitmap(bitmap)
-                    wishimage.visibility=View.INVISIBLE
-                }
-                catch (e:Exception)
-                {
+                    wishimage.visibility = View.INVISIBLE
+                } catch (e: Exception) {
                     e.printStackTrace()
                 }
             }
