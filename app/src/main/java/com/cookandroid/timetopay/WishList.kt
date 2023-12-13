@@ -13,6 +13,9 @@ import androidx.appcompat.app.AppCompatActivity
 
 class WishList : AppCompatActivity() {
 
+
+
+
     private lateinit var wishNameEditText: EditText
     private lateinit var wishExplainEditText: EditText
     private lateinit var wishPriceEditText: EditText
@@ -41,6 +44,11 @@ class WishList : AppCompatActivity() {
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
         }
 
+        val location = intent.getStringExtra("location")
+        val opExplanation = intent.getStringExtra("opExplanation")
+        val opHourlyRate = intent.getStringExtra("opHourlyRate")
+        val totalPayment = intent.getStringExtra("totalPayment")
+
         // EditText들을 참조
         wishNameEditText = findViewById(R.id.wishNameEditText)
         wishExplainEditText = findViewById(R.id.wishExplainEditText)
@@ -64,6 +72,9 @@ class WishList : AppCompatActivity() {
                 intent.putExtra("wishName", wishName)  // 데이터를 "wishName"이라는 키로 전달
                 intent.putExtra("wishExplain", wishExplain)  // 데이터를 "wishExplain"이라는 키로 전달
                 intent.putExtra("wishPrice", wishPrice)  // 데이터를 "wishPrice"이라는 키로 전달
+                intent.putExtra("location", location)
+                intent.putExtra("opExplanation", opExplanation)
+                intent.putExtra("opHourlyRate", opHourlyRate)
 
                 // 새로운 액티비티 시작
                 startActivity(intent)

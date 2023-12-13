@@ -158,6 +158,50 @@ class InfoInput : AppCompatActivity() {
     }
 
     private fun calculatePayment() {
-        // 여기에 계산 로직을 추가하면 됩니다.
+        val startTimeStr = opStartTimeEditText.text.toString()
+        val endTimeStr = opEndTimeEditText.text.toString()
+        val HourlyRate = opHourlyRateEditText.text.toString().toDoubleOrNull()
+
+
+        if (startTimeStr.isEmpty() || endTimeStr.isEmpty()) {
+            textViewResult.text = "근무 시작 시간과 종료 시간을 입력해주세요."
+            return
+        }
+
+        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val startTime = sdf.parse(startTimeStr)
+        val endTime = sdf.parse(endTimeStr)
+
+        val totalHours =
+            (endTime.time - startTime.time) / (60 * 60 * 1000.0) // 총 근무 시간(시간 단위, 소수점 포함)
+
+        var totalPayment = 0.0
+
+        if (HourlyRate != null) {
+            for (hour in 0 until totalHours.toInt()) {
+                val currentHourDate = Date(startTime.time + hour * 60 * 60 * 1000)
+                val currentHour = sdf.format(currentHourDate)
+                val isNightShift =
+                    sdf.parse(currentHour).hours >= 22 || sdf.parse(currentHour).hours < 6
+                val isOvertime = hour >= 8
+
+                var hourlyRateMultiplier = 1.0
+
+                if (isNightShift && isOvertime) {
+                    hourlyRateMultiplier = simultaneousRate
+                } else if (isNightShift) {
+                    hourlyRateMultiplier = nightShiftRate
+                } else if (isOvertime) {
+                    hourlyRateMultiplier = overtimeRate
+                }
+
+                totalPayment += HourlyRate * hourlyRateMultiplier * selectedDays.size * 4
+            }
+        }
+
+        val intent = Intent(this, WishList::class.java)
+        intent.putExtra("totalPayment", totalPayment)
+
     }
 }
+
