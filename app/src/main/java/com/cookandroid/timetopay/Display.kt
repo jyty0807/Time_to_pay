@@ -26,6 +26,9 @@ class Display : AppCompatActivity() {
     private lateinit var image: ImageView
     private val OPEN_GALLERY = 1
     private lateinit var monthlySalaryTextView: TextView
+    private lateinit var call: Button
+    private lateinit var iden: Button
+    private lateinit var cri: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +57,21 @@ class Display : AppCompatActivity() {
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
         }
+
+
+
+        call = findViewById(R.id.cal)
+        call.setOnClickListener {
+            val intent = Intent(this, Calendarview::class.java)
+            startActivity(intent)
+        }
+
+        iden = findViewById(R.id.idenn)
+        iden.setOnClickListener {
+            val intent = Intent(this, Scrollview::class.java)
+            startActivity(intent)
+        }
+
 
         //위시리스트 설정 데이터 추출
         val intent = intent

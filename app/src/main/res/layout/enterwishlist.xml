@@ -2,7 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/enterwishlist"
+    android:background="@drawable/wissss"
     android:paddingLeft="16dp"
     android:paddingTop="16dp"
     android:paddingRight="16dp"
@@ -49,22 +49,6 @@
         android:layout_marginTop="750dp"
         android:background="@drawable/wishlist_button"
         />
-
-    <android.widget.Button
-        android:id="@+id/nexttbutton"
-        android:layout_width="78dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="300dp"
-        android:background="@drawable/next_button" />
-
-    <android.widget.Button
-        android:id="@+id/w_Pre_button"
-        android:layout_width="78dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="0dp"
-        android:background="@drawable/previousbutton" />
 
 
 

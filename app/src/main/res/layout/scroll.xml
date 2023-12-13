@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".Scrollview">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/bgreen"
+            android:gravity="center"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="알바 꿀팁!"
+                android:textColor="@android:color/white"
+                android:textSize="24sp"
+            android:textStyle="bold" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_horizontal">
+
+                <Button
+                    android:id="@+id/button1"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="30dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/yellow_orange"
+                    android:text="알바몬 공식 사이트"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/button2"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/yellow_orange"
+                    android:text="알바천국"
+                    android:textColor="@android:color/black"
+                    android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/button3"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/yellow_orange"
+                    android:text="사람인"
+                    android:textColor="@android:color/black" android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/button4"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/yellow_orange"
+                    android:text="인크루트"
+                    android:textColor="@android:color/black" android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/button5"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/yellow_orange"
+                    android:text="고용노동부 청년포털"
+                    android:textColor="@android:color/black" android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/button6"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/yellow_orange"
+                    android:text="워크넷"
+                    android:textColor="@android:color/black" android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/button8"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/yellow_orange"
+                    android:text="최저임금위원회"
+                    android:textColor="@android:color/black" android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/button9"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/yellow_orange"
+                    android:text="청년내일채움공제"
+                    android:textColor="@android:color/black" android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/button10"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/yellow_orange"
+                    android:text="법률구조공단"
+                    android:textColor="@android:color/black" android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/button11"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/yellow_orange"
+                    android:text="청년유니온"
+                    android:textColor="@android:color/black" android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+                <Button
+                    android:id="@+id/button12"
+                    android:layout_width="300dp"
+                    android:layout_height="60dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@color/yellow_orange"
+                    android:text="청년유니온"
+                    android:textColor="@android:color/black" android:textSize="20sp"
+                    android:textStyle="bold"/>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>

@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/work_information"
+    android:background="@drawable/work_information_f"
     android:paddingLeft="16dp"
     android:paddingTop="16dp"
     android:paddingRight="16dp"
@@ -82,21 +82,7 @@
         android:background="@drawable/done_button"
         />
 
-    <android.widget.Button
-        android:id="@+id/i_nextbutton"
-        android:layout_width="78dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="300dp"
-        android:background="@drawable/next_button" />
 
-    <android.widget.Button
-        android:id="@+id/i_Pre_button"
-        android:layout_width="78dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="0dp"
-        android:background="@drawable/previousbutton" />
 
     <TextView
         android:id="@+id/textViewResult"
