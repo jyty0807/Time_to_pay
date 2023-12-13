@@ -199,9 +199,27 @@ class InfoInput : AppCompatActivity() {
             }
         }
 
-        val intent = Intent(this, WishList::class.java)
+        val intent = Intent(this, Display::class.java)
         intent.putExtra("totalPayment", totalPayment)
 
+        // 끝 시간에서 시작 시간을 빼서 일한 시간을 구함 (밀리초로 반환됨)
+
+
+        // 밀리초로 작업 시간 계산
+        val workedTimeInMillis = endTime.time - startTime.time
+
+// 밀리초를 시간 단위로 변환 (소수점 이하 제거)
+        val workedTimeInSeconds = workedTimeInMillis / 1000 // 밀리초를 초로 변환
+        val workedTimeInHours = workedTimeInSeconds / 3600 // 초를 시간으로 변환
+
+// 소수점 이하 제거
+        val workedHours = workedTimeInHours.toInt()
+
+// 작업 시간을 시간 단위로 인텐트에 추가
+        intent.putExtra("workedHours", workedHours) // 하루에 하는 작업 시간
+
+        startActivity(intent)
     }
 }
+
 

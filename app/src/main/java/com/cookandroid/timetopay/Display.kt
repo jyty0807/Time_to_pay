@@ -18,6 +18,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
 
 class Display : AppCompatActivity() {
@@ -58,8 +59,6 @@ class Display : AppCompatActivity() {
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
         }
 
-
-
         call = findViewById(R.id.cal)
         call.setOnClickListener {
             val intent = Intent(this, Calendarview::class.java)
@@ -72,8 +71,13 @@ class Display : AppCompatActivity() {
             startActivity(intent)
         }
 
+        cri = findViewById(R.id.crii)
+        cri.setOnClickListener {
+            val intent = Intent(this, Scrollview::class.java)
+            startActivity(intent)
+        }
 
-        //위시리스트 설정 데이터 추출
+        // 위시리스트 설정 데이터 추출
         val intent = intent
         val wishName = intent.getStringExtra("wishName")
         val wishExplain = intent.getStringExtra("wishExplain")
@@ -89,9 +93,18 @@ class Display : AppCompatActivity() {
         val opTime = intent.getStringExtra("opTime")
         val totalPayment = intent.getStringExtra("totalPayment")
 
+        // 시급과 물건 가격이 유효한 값인지 확인
+        val hourlyRate = opHourlyRate?.toDoubleOrNull()
+        val itemPrice = wishPrice?.toDoubleOrNull()
+
+        if (hourlyRate != null && itemPrice != null) {
+            // 일해야 되는 시간 계산
+            val hoursRequired = itemPrice / hourlyRate
+            intent.putExtra("hoursRequired", hoursRequired)
+        }
+
         val monthlySalaryTextView = findViewById<TextView>(R.id.monthlysalaryTextView)
         monthlySalaryTextView.text = totalPayment.toString()
-
 
         // 현재 날짜 가져오기
         val currentDate = getCurrentDate()
@@ -107,7 +120,32 @@ class Display : AppCompatActivity() {
         return sdf.format(Date())
     }
 
-    @Override
+    private fun updateWorkedHours() {
+        val intent = intent
+        if (intent != null) {
+            val remainHours = intent.getDoubleExtra("hoursRequired", 0.0) // 물건 갖기 위해 일해야 되는 시간
+
+            // 하루에 일한 시간 가져오기
+            val onedayHours = intent.getIntExtra("workedtime", 0) // 일해야 되는 시간
+
+            // 현재 요일을 가져오기
+            val calendar = Calendar.getInstance()
+            val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+
+            // 요일에 따라 일한 시간 업데이트
+            val updatedWorkedHours = remainHours - onedayHours
+
+            // TextView 가져오기
+            val remainHoursTextView = findViewById<TextView>(R.id.remainHoursTextView)
+
+            // TextView에 데이터 설정
+            remainHoursTextView.text = updatedWorkedHours.toString()
+
+            // 업데이트 된 workedHours 값을 다시 Intent에 저장
+            intent.putExtra("hoursRequired", updatedWorkedHours)
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

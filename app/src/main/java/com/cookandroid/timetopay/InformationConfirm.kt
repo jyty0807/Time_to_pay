@@ -13,10 +13,10 @@ class InformationConfirm : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.information)
 
-        icpreButton = findViewById(R.id.c_Pre_button)
+        icpreButton = findViewById(R.id.confirmbutton)
         icpreButton.setOnClickListener {
             // 이전으로 이동할 액티비티의 클래스를 명시
-            val intent = Intent(this, WishList::class.java)
+            val intent = Intent(this, Display::class.java)
             startActivity(intent)
         }
     }

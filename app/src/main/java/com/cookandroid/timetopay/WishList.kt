@@ -20,8 +20,6 @@ class WishList : AppCompatActivity() {
     private lateinit var wishExplainEditText: EditText
     private lateinit var wishPriceEditText: EditText
     private lateinit var wishlistButton: Button
-    private lateinit var nextt_button: Button
-    private lateinit var wpreviousButton: Button
 
     private var savedData: String = ""  // 추출한 데이터를 저장할 변수
 
@@ -81,21 +79,7 @@ class WishList : AppCompatActivity() {
             }
         }
 
-        // nextt_button과 setOnClickListener가 wishlistButton의 블록 바깥에 위치하도록 변경
-        nextt_button = findViewById(R.id.nexttbutton)
-        nextt_button.setOnClickListener {
-            // 다음으로 이동할 액티비티의 클래스를 명시
-            val intent = Intent(this, InformationConfirm::class.java)
-            startActivity(intent)
-        }
 
-        // wpreviousButton과 setOnClickListener가 wishlistButton의 블록 바깥에 위치하도록 변경
-        wpreviousButton = findViewById(R.id.w_Pre_button)
-        wpreviousButton.setOnClickListener {
-            // 이전으로 이동할 액티비티의 클래스를 명시
-            val intent = Intent(this, InfoInput::class.java)
-            startActivity(intent)
-        }
     }
 
     private fun showToast(message: String) {

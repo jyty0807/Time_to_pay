@@ -40,12 +40,12 @@
         android:id="@+id/monthlysalaryTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="615dp"
-        android:layout_marginLeft="80dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="620dp"
         android:background="@android:color/transparent"
-        android:hint="물건 가격을 입력해 주세요."
-        android:textStyle="bold"
-        android:textSize="18sp"/>
+        android:hint="한 달 월급입니다."
+        android:textSize="18dp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/remainingworkdayTextView"
@@ -59,7 +59,7 @@
         android:textSize="30dp"/>
 
     <TextView
-        android:id="@+id/remainingworktimeTextView"
+        android:id="@+id/remainHoursTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="720dp"
