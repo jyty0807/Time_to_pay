@@ -15,15 +15,15 @@
         android:id="@+id/wishimage"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="450dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="200dp"
         android:background="@drawable/cart" />
 
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="450dp"
-        android:layout_marginStart="80dp"
+        android:layout_marginTop="190dp"
+        android:layout_marginStart="150dp"
         android:id="@+id/image"/>
 
     <TextView
