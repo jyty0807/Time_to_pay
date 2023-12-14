@@ -1,5 +1,6 @@
 package com.cookandroid.timetopay
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -23,6 +24,7 @@ class WishList : AppCompatActivity() {
 
     private var savedData: String = ""  // 추출한 데이터를 저장할 변수
 
+    @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.enterwishlist)
@@ -50,7 +52,7 @@ class WishList : AppCompatActivity() {
         // EditText들을 참조
         wishNameEditText = findViewById(R.id.wishNameEditText)
         wishExplainEditText = findViewById(R.id.wishExplainEditText)
-        wishPriceEditText = findViewById(R.id.wishPrice)
+        wishPriceEditText = findViewById(R.id.wishPriceEditText)
 
         wishlistButton = findViewById(R.id.wishlistbutton)
         wishlistButton.setOnClickListener {
