@@ -94,6 +94,8 @@ class InfoInput : AppCompatActivity() {
                 intent.putExtra("location", location)
                 intent.putExtra("opExplanation", opExplanation)
                 intent.putExtra("opHourlyRate", opHourlyRate)
+                intent.putExtra("totalPayment", calculateTotalPayment()) // 총 급여를 전달
+
                 Handler().postDelayed({
                     startActivity(intent)
                 }, 200)
@@ -157,15 +159,14 @@ class InfoInput : AppCompatActivity() {
         textViewResult.text = "선택된 요일: $selectedDaysString"
     }
 
-    private fun calculatePayment() {
+    private fun calculateTotalPayment(): Double {
         val startTimeStr = opStartTimeEditText.text.toString()
         val endTimeStr = opEndTimeEditText.text.toString()
-        val HourlyRate = opHourlyRateEditText.text.toString().toDoubleOrNull()
-
+        val hourlyRate = opHourlyRateEditText.text.toString().toDoubleOrNull()
 
         if (startTimeStr.isEmpty() || endTimeStr.isEmpty()) {
             textViewResult.text = "근무 시작 시간과 종료 시간을 입력해주세요."
-            return
+            return 0.0
         }
 
         val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
@@ -173,11 +174,11 @@ class InfoInput : AppCompatActivity() {
         val endTime = sdf.parse(endTimeStr)
 
         val totalHours =
-            (endTime.time - startTime.time) / (60 * 60 * 1000.0) // 총 근무 시간(시간 단위, 소수점 포함)
+            (endTime.time - startTime.time) / (60 * 60 * 1000.0)
 
         var totalPayment = 0.0
 
-        if (HourlyRate != null) {
+        if (hourlyRate != null) {
             for (hour in 0 until totalHours.toInt()) {
                 val currentHourDate = Date(startTime.time + hour * 60 * 60 * 1000)
                 val currentHour = sdf.format(currentHourDate)
@@ -195,31 +196,10 @@ class InfoInput : AppCompatActivity() {
                     hourlyRateMultiplier = overtimeRate
                 }
 
-                totalPayment += HourlyRate * hourlyRateMultiplier * selectedDays.size * 4
+                totalPayment += hourlyRate * hourlyRateMultiplier * selectedDays.size * 4
             }
         }
 
-        val intent = Intent(this, Display::class.java)
-        intent.putExtra("totalPayment", totalPayment)
-
-        // 끝 시간에서 시작 시간을 빼서 일한 시간을 구함 (밀리초로 반환됨)
-
-
-        // 밀리초로 작업 시간 계산
-        val workedTimeInMillis = endTime.time - startTime.time
-
-// 밀리초를 시간 단위로 변환 (소수점 이하 제거)
-        val workedTimeInSeconds = workedTimeInMillis / 1000 // 밀리초를 초로 변환
-        val workedTimeInHours = workedTimeInSeconds / 3600 // 초를 시간으로 변환
-
-// 소수점 이하 제거
-        val workedHours = workedTimeInHours.toInt()
-
-// 작업 시간을 시간 단위로 인텐트에 추가
-        intent.putExtra("workedHours", workedHours) // 하루에 하는 작업 시간
-
-        startActivity(intent)
+        return totalPayment
     }
 }
-
-
