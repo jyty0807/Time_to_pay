@@ -95,6 +95,8 @@ class InfoInput : AppCompatActivity() {
                 intent.putExtra("opHourlyRate", opHourlyRate)
                 intent.putExtra("totalPayment", calculateTotalPayment()) // 총 급여를 전달
                 intent.putExtra("remainingWorkDays", calculateRemainingWorkDays()) // 남은 근무일 수를 전달
+                // 기존 인텐트 데이터 추가
+                intent.putExtra("dailyWage", dailyWage) // 하루 일급 추가
 
                 Handler().postDelayed({
                     startActivity(intent)
@@ -169,6 +171,7 @@ class InfoInput : AppCompatActivity() {
             return 0.0
         }
 
+
         val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
         val startTime = sdf.parse(startTimeStr)
         val endTime = sdf.parse(endTimeStr)
@@ -207,4 +210,27 @@ class InfoInput : AppCompatActivity() {
         // 남은 근무일 수를 계산하는 로직을 구현
         return selectedDays.size * 4 // 한 달 근무일은 선택한 요일의 수 * 4
     }
-}
+
+    private fun calculateDailyWage(): Double {
+        val startTimeStr = opStartTimeEditText.text.toString()
+        val endTimeStr = opEndTimeEditText.text.toString()
+        val hourlyRate = opHourlyRateEditText.text.toString().toDoubleOrNull()
+
+        if (startTimeStr.isEmpty() || endTimeStr.isEmpty() || hourlyRate == null) {
+            textViewResult.text = "근무 시작 시간, 종료 시간 및 시간당 급여를 입력해주세요."
+            return 0.0
+        }
+
+        val sdf = SimpleDateFormat("HH:mm", Locale.getDefault())
+        val startTime = sdf.parse(startTimeStr) ?: return 0.0
+        val endTime = sdf.parse(endTimeStr) ?: return 0.0
+
+        // 근무 시간을 밀리초로 계산 후 시간 단위로 변환
+        val totalHours = (endTime.time - startTime.time) / (60 * 60 * 1000.0)
+        if (totalHours < 0) { // 음수일 경우 다음날 종료로 가정
+            return hourlyRate * (24 + totalHours)
+        }
+        return hourlyRate * totalHours
+    }
+
+    val dailyWage = calculateDailyWage() }

@@ -2,6 +2,7 @@ package com.cookandroid.timetopay
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.PorterDuff
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -11,9 +12,11 @@ import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.widget.Button
 import android.widget.ImageView
+import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -28,21 +31,40 @@ class Display : AppCompatActivity() {
     private lateinit var iden: Button
     private lateinit var cri: Button
     private lateinit var remainingWorkDayTextView: TextView
-    private lateinit var remainHoursTextView: TextView  // 남은 시간을 표시할 TextView
+    private lateinit var remainHoursTextView: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.displaymain)
 
+        // Initialize views
+        initializeViews()
+
+        // Set up UI visibility
+        setUpUIVisibility()
+
+        // Set listeners for buttons
+        setButtonListeners()
+
+        // Retrieve and display intent data
+        displayIntentData()
+
+        // Set up achievement progress bar color
+        setUpProgressBarColor()
+    }
+
+    private fun initializeViews() {
         wishimage = findViewById(R.id.wishimage)
         image = findViewById(R.id.image)
+        call = findViewById(R.id.cal)
+        iden = findViewById(R.id.idenn)
+        cri = findViewById(R.id.crii)
+        monthlySalaryTextView = findViewById(R.id.monthlysalaryTextView)
+        remainingWorkDayTextView = findViewById(R.id.remainingworkdayTextView)
+        remainHoursTextView = findViewById(R.id.remainHoursTextView)
+    }
 
-        wishimage.setOnClickListener {
-            val intent = Intent(Intent.ACTION_PICK)
-            intent.type = "image/*"
-            startActivityForResult(intent, OPEN_GALLERY)
-        }
-
+    private fun setUpUIVisibility() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             window.setDecorFitsSystemWindows(false)
             window.insetsController?.hide(WindowInsets.Type.systemBars() or WindowInsets.Type.navigationBars())
@@ -57,25 +79,32 @@ class Display : AppCompatActivity() {
                         View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN or
                         View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION)
         }
+    }
 
-        call = findViewById(R.id.cal)
+    private fun setButtonListeners() {
+        wishimage.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK)
+            intent.type = "image/*"
+            startActivityForResult(intent, OPEN_GALLERY)
+        }
+
         call.setOnClickListener {
             val intent = Intent(this, Calendarview::class.java)
             startActivity(intent)
         }
 
-        iden = findViewById(R.id.idenn)
         iden.setOnClickListener {
             val intent = Intent(this, Scrollview::class.java)
             startActivity(intent)
         }
 
-        cri = findViewById(R.id.crii)
         cri.setOnClickListener {
             val intent = Intent(this, Scrollview::class.java)
             startActivity(intent)
         }
+    }
 
+    private fun displayIntentData() {
         val intent = intent
         val wishName = intent.getStringExtra("wishName")
         val wishExplain = intent.getStringExtra("wishExplain")
@@ -86,34 +115,33 @@ class Display : AppCompatActivity() {
         val location = intent.getStringExtra("location")
         val opExplanation = intent.getStringExtra("opExplanation")
         val opHourlyRate = intent.getStringExtra("opHourlyRate")
-        val opWeek = intent.getStringExtra("opWeek")
-        val opTime = intent.getStringExtra("opTime")
         val totalPayment = intent.getDoubleExtra("totalPayment", 0.0)
 
-        val hourlyRate = opHourlyRate?.toDoubleOrNull()
-        val itemPrice = wishPrice?.toDoubleOrNull()
-
-        if (hourlyRate != null && itemPrice != null) {
-            val hoursRequired = itemPrice / hourlyRate
-            intent.putExtra("hoursRequired", hoursRequired)
-        }
-
-        val monthlySalaryTextView = findViewById<TextView>(R.id.monthlysalaryTextView)
         monthlySalaryTextView.text = totalPayment.toString()
 
         val currentDate = getCurrentDate()
-
         val dateTextView: TextView = findViewById(R.id.dateTextView)
-        dateTextView.text = "$currentDate"
+        dateTextView.text = currentDate
 
-        remainingWorkDayTextView = findViewById(R.id.remainingworkdayTextView)
-        remainHoursTextView = findViewById(R.id.remainHoursTextView)
-
-        // 남은 근무일 수를 표시할 TextView를 초기화하고 업데이트
         updateRemainingWorkingDays()
-
-        // 남은 시간을 표시할 TextView를 초기화하고 업데이트
         updateRemainingTime()
+
+        val achievementRate = calculateAchievementRate(wishPrice?.toDoubleOrNull() ?: 0.0, totalPayment)
+        val achievementCircularProgressBar: ProgressBar = findViewById(R.id.achievementCircularProgressBar)
+        achievementCircularProgressBar.progress = achievementRate.toInt()
+    }
+
+    private fun setUpProgressBarColor() {
+        val progressBar: ProgressBar = findViewById(R.id.achievementCircularProgressBar)
+        val color = ContextCompat.getColor(this, R.color.bgreen) // 원하는 색상
+        progressBar.indeterminateDrawable.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+        progressBar.progressDrawable.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+    }
+
+    private fun calculateAchievementRate(wishPrice: Double, totalPayment: Double): Double {
+        if (wishPrice == 0.0) return 0.0
+        val rate = (totalPayment / wishPrice) * 100
+        return if (rate > 100) 100.0 else rate
     }
 
     private fun getCurrentDate(): String {
@@ -125,7 +153,6 @@ class Display : AppCompatActivity() {
         val intent = intent
         if (intent != null) {
             val remainingWorkingDays = intent.getIntExtra("remainingWorkDays", 0)
-            // 남은 근무일 수를 TextView에 표시
             remainingWorkDayTextView.text = "$remainingWorkingDays"
         }
     }
@@ -139,11 +166,13 @@ class Display : AppCompatActivity() {
             val endTimeMillis = currentTimeMillis + (hoursRequired * 60 * 60 * 1000).toLong()
 
             val remainingMillis = endTimeMillis - currentTimeMillis
-            val remainingHours = remainingMillis / (60 * 60 * 1000)
-            val remainingMinutes = (remainingMillis % (60 * 60 * 1000)) / (60 * 1000)
-
-            // 남은 시간을 TextView에 표시
-            remainHoursTextView.text = "${remainingHours}"
+            if (remainingMillis > 0) {
+                val remainingHours = remainingMillis / (60 * 60 * 1000)
+                val remainingMinutes = (remainingMillis % (60 * 60 * 1000)) / (60 * 1000)
+                remainHoursTextView.text = "${remainingHours}시간 ${remainingMinutes}분 남음"
+            } else {
+                remainHoursTextView.text = "목표 달성"
+            }
         }
     }
 

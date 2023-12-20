@@ -19,6 +19,29 @@
         android:layout_marginTop="460dp"
         android:background="@drawable/cart" />
 
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="190dp"
+        android:layout_marginStart="100dp">
+
+        <ProgressBar
+            android:id="@+id/achievementCircularProgressBar"
+            style="?android:attr/progressBarStyleLarge"
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:max="100" />
+
+        <TextView
+            android:id="@+id/achievementPercentageTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="0%"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
