@@ -13,25 +13,25 @@
 
     <android.widget.Button
         android:id="@+id/wishimage"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="200dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="460dp"
         android:background="@drawable/cart" />
 
     <ImageView
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="190dp"
-        android:layout_marginStart="150dp"
+        android:layout_marginTop="450dp"
+        android:layout_marginStart="65dp"
         android:id="@+id/image"/>
 
     <TextView
         android:id="@+id/wishTextView"
-        android:layout_width="250dp"
-        android:layout_height="70dp"
-        android:layout_marginTop="450dp"
-        android:layout_marginLeft="60dp"
+        android:layout_width="120dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="460dp"
+        android:layout_marginLeft="170dp"
         android:background="@android:color/transparent"
         android:textStyle="bold" />
 
@@ -40,34 +40,34 @@
         android:id="@+id/monthlysalaryTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="620dp"
+        android:layout_marginLeft="120dp"
+        android:layout_marginTop="615dp"
         android:background="@android:color/transparent"
-        android:hint="한 달 월급입니다."
-        android:textSize="18dp"
+        android:hint="한달 월급입니다."
+        android:textSize="19dp"
         android:textStyle="bold" />
 
     <TextView
         android:id="@+id/remainingworkdayTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="720dp"
-        android:layout_marginLeft="100dp"
+        android:layout_marginTop="723dp"
+        android:layout_marginLeft="104dp"
         android:background="@android:color/transparent"
         android:hint="20"
         android:textStyle="bold"
-        android:textSize="30dp"/>
+        android:textSize="24dp"/>
 
     <TextView
         android:id="@+id/remainHoursTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="720dp"
-        android:layout_marginLeft="225dp"
+        android:layout_marginTop="723dp"
+        android:layout_marginLeft="230dp"
         android:background="@android:color/transparent"
         android:hint="20"
         android:textStyle="bold"
-        android:textSize="30dp"/>
+        android:textSize="24dp"/>
 
     <TextView
         android:id="@+id/dateTextView"
@@ -89,7 +89,6 @@
         android:id="@+id/cal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
         android:background="@drawable/clalll" />
 
     <android.widget.Button

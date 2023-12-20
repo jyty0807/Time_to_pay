@@ -130,7 +130,7 @@ class Scrollview : AppCompatActivity() {
         val button11: Button = findViewById(R.id.button11)
         button11.setOnClickListener {
             // 웹사이트 URL
-            val url = "http://www.youthlabor.org"
+            val url = "http://www.youthunion.kr"
 
             // 인텐트 생성
             val intent = Intent(Intent.ACTION_VIEW)
