@@ -27,6 +27,8 @@ class Display : AppCompatActivity() {
     private lateinit var call: Button
     private lateinit var iden: Button
     private lateinit var cri: Button
+    private lateinit var remainingWorkDayTextView: TextView
+    private lateinit var remainHoursTextView: TextView  // 남은 시간을 표시할 TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,6 +105,15 @@ class Display : AppCompatActivity() {
 
         val dateTextView: TextView = findViewById(R.id.dateTextView)
         dateTextView.text = "$currentDate"
+
+        remainingWorkDayTextView = findViewById(R.id.remainingworkdayTextView)
+        remainHoursTextView = findViewById(R.id.remainHoursTextView)
+
+        // 남은 근무일 수를 표시할 TextView를 초기화하고 업데이트
+        updateRemainingWorkingDays()
+
+        // 남은 시간을 표시할 TextView를 초기화하고 업데이트
+        updateRemainingTime()
     }
 
     private fun getCurrentDate(): String {
@@ -110,17 +121,29 @@ class Display : AppCompatActivity() {
         return sdf.format(Date())
     }
 
-    private fun updateWorkedHours() {
+    private fun updateRemainingWorkingDays() {
         val intent = intent
         if (intent != null) {
-            val remainHours = intent.getDoubleExtra("hoursRequired", 0.0)
-            val onedayHours = intent.getIntExtra("workedtime", 0)
-            val calendar = Calendar.getInstance()
-            val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
-            val updatedWorkedHours = remainHours - onedayHours
-            val remainHoursTextView = findViewById<TextView>(R.id.remainHoursTextView)
-            remainHoursTextView.text = updatedWorkedHours.toString()
-            intent.putExtra("hoursRequired", updatedWorkedHours)
+            val remainingWorkingDays = intent.getIntExtra("remainingWorkDays", 0)
+            // 남은 근무일 수를 TextView에 표시
+            remainingWorkDayTextView.text = "$remainingWorkingDays"
+        }
+    }
+
+    private fun updateRemainingTime() {
+        val intent = intent
+        if (intent != null) {
+            val hoursRequired = intent.getDoubleExtra("hoursRequired", 0.0)
+
+            val currentTimeMillis = System.currentTimeMillis()
+            val endTimeMillis = currentTimeMillis + (hoursRequired * 60 * 60 * 1000).toLong()
+
+            val remainingMillis = endTimeMillis - currentTimeMillis
+            val remainingHours = remainingMillis / (60 * 60 * 1000)
+            val remainingMinutes = (remainingMillis % (60 * 60 * 1000)) / (60 * 1000)
+
+            // 남은 시간을 TextView에 표시
+            remainHoursTextView.text = "${remainingHours}"
         }
     }
 

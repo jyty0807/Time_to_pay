@@ -36,7 +36,6 @@ class InfoInput : AppCompatActivity() {
     private val overtimeRate = 1.5
     private val nightShiftRate = 1.5
     private val simultaneousRate = 2.0
-    private val weeklyWorkHoursThreshold = 15 // 주휴 수당을 받기 위한 주간 근무 시간 기준
 
     private val selectedDays = mutableSetOf<String>()
 
@@ -95,6 +94,7 @@ class InfoInput : AppCompatActivity() {
                 intent.putExtra("opExplanation", opExplanation)
                 intent.putExtra("opHourlyRate", opHourlyRate)
                 intent.putExtra("totalPayment", calculateTotalPayment()) // 총 급여를 전달
+                intent.putExtra("remainingWorkDays", calculateRemainingWorkDays()) // 남은 근무일 수를 전달
 
                 Handler().postDelayed({
                     startActivity(intent)
@@ -196,10 +196,15 @@ class InfoInput : AppCompatActivity() {
                     hourlyRateMultiplier = overtimeRate
                 }
 
-                totalPayment += hourlyRate * hourlyRateMultiplier * selectedDays.size * 4
+                totalPayment += hourlyRate * hourlyRateMultiplier
             }
         }
 
         return totalPayment
+    }
+
+    private fun calculateRemainingWorkDays(): Int {
+        // 남은 근무일 수를 계산하는 로직을 구현
+        return selectedDays.size * 4 // 한 달 근무일은 선택한 요일의 수 * 4
     }
 }

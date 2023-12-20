@@ -59,6 +59,9 @@ class WishList : AppCompatActivity() {
             if (wishName.isEmpty() || wishExplain.isEmpty() || wishPrice.isEmpty()) {
                 showToast("모든 항목을 입력하세요.")
             } else {
+                // 이 부분에서 남은 근무일 수를 가져와 변수에 저장하고, 인텐트에 추가합니다.
+                val remainingWorkDays = 10 // 여기에 실제로 남은 근무일 수를 계산하여 넣어주세요.
+
                 saveData(wishName, wishExplain, wishPrice)
                 showToast("물건 이름: $wishName\n물건 설명: $wishExplain\n물건 가격: $wishPrice")
 
@@ -71,9 +74,13 @@ class WishList : AppCompatActivity() {
                 intent.putExtra("opHourlyRate", opHourlyRate)
                 intent.putExtra("totalPayment", totalPayment)
 
+                // 남은 근무일 수를 인텐트에 추가합니다.
+                intent.putExtra("remainingWorkDays", remainingWorkDays)
+
                 startActivity(intent)
             }
         }
+
     }
 
     private fun showToast(message: String) {

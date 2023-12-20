@@ -85,27 +85,27 @@
         android:orientation="horizontal">
 
 
-    <android.widget.Button
-        android:id="@+id/cal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <android.widget.Button
+            android:id="@+id/cal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        android:background="@drawable/clalll" />
+            android:background="@drawable/clalll" />
 
-    <android.widget.Button
-        android:id="@+id/idenn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        <android.widget.Button
+            android:id="@+id/idenn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-        android:layout_marginLeft="50dp"
-        android:background="@drawable/iden" />
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/iden" />
 
-    <android.widget.Button
-        android:id="@+id/crii"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="50dp"
-        android:background="@drawable/cti" />
+        <android.widget.Button
+            android:id="@+id/crii"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:background="@drawable/cti" />
 
     </LinearLayout>
 
