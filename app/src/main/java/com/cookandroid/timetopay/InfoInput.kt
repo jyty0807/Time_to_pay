@@ -204,7 +204,7 @@ class InfoInput : AppCompatActivity() {
                     hourlyRateMultiplier = overtimeRate
                 }
 
-                totalPayment += hourlyRate * hourlyRateMultiplier
+                totalPayment += hourlyRate * hourlyRateMultiplier * selectedDays.size * 4
             }
         }
 
