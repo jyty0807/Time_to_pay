@@ -35,7 +35,6 @@ class Display : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val dateTextView: TextView = findViewById(R.id.dateTextView)
         setContentView(R.layout.displaymain)
 
         // Initialize views
