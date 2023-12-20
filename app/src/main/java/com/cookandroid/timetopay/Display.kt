@@ -35,7 +35,6 @@ class Display : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val dateTextView: TextView = findViewById(R.id.dateTextView)
         setContentView(R.layout.displaymain)
 
         // Initialize views
@@ -52,7 +51,10 @@ class Display : AppCompatActivity() {
 
         // Set up achievement progress bar color
         setUpProgressBarColor()
+
+        val dateTextView: TextView = findViewById(R.id.dateTextView)
     }
+
 
     private fun initializeViews() {
         wishimage = findViewById(R.id.wishimage)
@@ -176,6 +178,7 @@ class Display : AppCompatActivity() {
             }
         }
     }
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
