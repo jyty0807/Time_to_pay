@@ -35,6 +35,7 @@ class Display : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val dateTextView: TextView = findViewById(R.id.dateTextView)
         setContentView(R.layout.displaymain)
 
         // Initialize views
@@ -172,8 +173,6 @@ class Display : AppCompatActivity() {
                 val remainingHours = remainingMillis / (60 * 60 * 1000)
                 val remainingMinutes = (remainingMillis % (60 * 60 * 1000)) / (60 * 1000)
                 remainHoursTextView.text = "${remainingHours}"
-            } else {
-                remainHoursTextView.text = "목표 달성"
             }
         }
     }
