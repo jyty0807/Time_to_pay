@@ -39,6 +39,8 @@ class InfoInput : AppCompatActivity() {
 
     private val selectedDays = mutableSetOf<String>()
 
+    private var dailyWage: Double = 0.0
+
     @SuppressLint("MissingInflatedId")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -103,6 +105,9 @@ class InfoInput : AppCompatActivity() {
                 }, 200)
             }
         }
+
+        // dailyWage 초기화
+        dailyWage = calculateDailyWage()
     }
 
     private fun showTimePicker(editText: EditText) {
@@ -232,5 +237,4 @@ class InfoInput : AppCompatActivity() {
         }
         return hourlyRate * totalHours
     }
-
-    val dailyWage = calculateDailyWage() }
+}

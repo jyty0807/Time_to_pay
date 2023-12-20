@@ -133,9 +133,11 @@ class Display : AppCompatActivity() {
 
     private fun setUpProgressBarColor() {
         val progressBar: ProgressBar = findViewById(R.id.achievementCircularProgressBar)
-        val color = ContextCompat.getColor(this, R.color.bgreen) // 원하는 색상
-        progressBar.indeterminateDrawable.setColorFilter(color, PorterDuff.Mode.SRC_IN)
-        progressBar.progressDrawable.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+        if (progressBar != null) {  // Null 체크 추가
+            val color = ContextCompat.getColor(this, R.color.bgreen) // 원하는 색상
+            progressBar.indeterminateDrawable?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+            progressBar.progressDrawable?.setColorFilter(color, PorterDuff.Mode.SRC_IN)
+        }
     }
 
     private fun calculateAchievementRate(wishPrice: Double, totalPayment: Double): Double {
@@ -169,7 +171,7 @@ class Display : AppCompatActivity() {
             if (remainingMillis > 0) {
                 val remainingHours = remainingMillis / (60 * 60 * 1000)
                 val remainingMinutes = (remainingMillis % (60 * 60 * 1000)) / (60 * 1000)
-                remainHoursTextView.text = "${remainingHours}시간 ${remainingMinutes}분 남음"
+                remainHoursTextView.text = "${remainingHours}"
             } else {
                 remainHoursTextView.text = "목표 달성"
             }
